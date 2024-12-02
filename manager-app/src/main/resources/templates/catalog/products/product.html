@@ -8,9 +8,15 @@
 <a data-th-href="@{/catalog/products/list}">&lAarr; К списку товаров</a>
 <h1 data-th-text="${product.title}"></h1>
 <ul>
-    <li><strong>ID: <span data-th-text="${product.id}"></span></strong> </li>
-    <li><strong>Название товара: <span data-th-text="${product.title}"></span></strong> </li>
-    <li><strong>Описание товара: <span data-th-text="${product.details}"></span></strong> </li>
+    <li><strong>ID: <span data-th-text="${product.id}"></span></strong></li>
+    <li><strong>Название товара: <span data-th-text="${product.title}"></span></strong></li>
+    <li><strong>Описание товара: <span data-th-text="${product.details}"></span></strong></li>
 </ul>
+<a data-th-href="@{/catalog/products/{productId}/edit(productId=${product.id})}">Изменить</a>
+<br>
+<br>
+<form method="post" data-th-action="@{/catalog/products/{productId}/delete(productId=${product.id})}">
+    <button type="submit">Удалить</button>
+</form>
 </body>
 </html>

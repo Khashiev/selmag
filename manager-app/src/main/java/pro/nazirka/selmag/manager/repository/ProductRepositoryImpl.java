@@ -34,4 +34,9 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .filter(product -> Objects.equals(product.getId(), productId))
                 .findFirst();
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        this.products.removeIf(product -> Objects.equals(product.getId(), id));
+    }
 }
