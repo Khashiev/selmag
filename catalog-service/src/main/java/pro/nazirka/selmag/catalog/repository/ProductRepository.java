@@ -1,6 +1,6 @@
-package pro.nazirka.selmag.manager.repository;
+package pro.nazirka.selmag.catalog.repository;
 
-import pro.nazirka.selmag.manager.entity.Product;
+import pro.nazirka.selmag.catalog.entity.Product;
 
 import java.util.List;
 import java.util.Optional;

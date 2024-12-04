@@ -1,7 +1,7 @@
-package pro.nazirka.selmag.manager.repository;
+package pro.nazirka.selmag.catalog.repository;
 
 import org.springframework.stereotype.Repository;
-import pro.nazirka.selmag.manager.entity.Product;
+import pro.nazirka.selmag.catalog.entity.Product;
 
 import java.util.*;
 
