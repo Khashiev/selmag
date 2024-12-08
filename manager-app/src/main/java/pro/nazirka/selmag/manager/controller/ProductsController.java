@@ -7,19 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import pro.nazirka.selmag.manager.client.ProductsRestClient;
 import pro.nazirka.selmag.manager.entity.Product;
 import pro.nazirka.selmag.manager.controller.payload.NewProductPayload;
-import pro.nazirka.selmag.manager.service.ProductService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("catalog/products")
 public class ProductsController {
-    private final ProductService productService;
+    private final ProductsRestClient productsRestClient;
 
     @GetMapping("list")
     public String getProductsList(Model model) {
-        model.addAttribute("products", this.productService.findAllProducts());
+        model.addAttribute("products", this.productsRestClient.findAllProducts());
         return "catalog/products/list";
     }
 
@@ -40,8 +40,8 @@ public class ProductsController {
 
             return "catalog/products/new_product";
         } else {
-            Product product = this.productService.createProduct(payload.title(), payload.details());
-            return "redirect:/catalog/products/%d".formatted(product.getId());
+            Product product = this.productsRestClient.createProduct(payload.title(), payload.details());
+            return "redirect:/catalog/products/%d".formatted(product.id());
         }
     }
 }

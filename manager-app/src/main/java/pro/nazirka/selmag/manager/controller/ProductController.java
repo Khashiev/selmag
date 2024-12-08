@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import pro.nazirka.selmag.manager.client.ProductsRestClient;
 import pro.nazirka.selmag.manager.entity.Product;
 import pro.nazirka.selmag.manager.controller.payload.UpdateProductPayload;
-import pro.nazirka.selmag.manager.service.ProductService;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -22,12 +22,12 @@ import java.util.NoSuchElementException;
 @RequestMapping("catalog/products/{productId:\\d+}")
 @RequiredArgsConstructor
 public class ProductController {
-    private final ProductService productService;
+    private final ProductsRestClient productsRestClient;
     private final MessageSource messageSource;
 
     @ModelAttribute("product")
     public Product product(@PathVariable("productId") int productId) {
-        return this.productService.findProduct(productId)
+        return this.productsRestClient.findProduct(productId)
                 .orElseThrow(() -> new NoSuchElementException("catalog.errors.product.not_found"));
     }
 
@@ -53,14 +53,14 @@ public class ProductController {
                     .toList());
             return "catalog/products/edit";
         } else {
-            this.productService.updateProduct(product.getId(), payload.title(), payload.details());
-            return "redirect:/catalog/products/%d".formatted(product.getId());
+            this.productsRestClient.updateProduct(product.id(), payload.title(), payload.details());
+            return "redirect:/catalog/products/%d".formatted(product.id());
         }
     }
 
     @PostMapping("delete")
     public String deleteProduct(@ModelAttribute("product") Product product) {
-        this.productService.delete(product.getId());
+        this.productsRestClient.deleteProduct(product.id() );
         return "redirect:/catalog/products/list";
     }
 
