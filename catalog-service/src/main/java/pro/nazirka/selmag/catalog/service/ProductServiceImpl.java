@@ -15,8 +15,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Iterable<Product> findAllProducts() {
-        return this.productRepository.findAll();
+    public Iterable<Product> findAllProducts(String filter) {
+        if (filter != null && !filter.isBlank()) {
+            return this.productRepository.findAllByTitleLikeIgnoreCase(filter);
+        } else {
+            return this.productRepository.findAll();
+        }
     }
 
     @Override

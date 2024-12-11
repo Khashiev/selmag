@@ -8,5 +8,10 @@ spring:
     schemas:
       - public
       - catalog
+  jpa:
+    show-sql: true
 server:
   port: 8081
+logging:
+  level:
+    sql: info
