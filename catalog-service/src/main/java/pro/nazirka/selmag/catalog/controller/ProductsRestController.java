@@ -11,7 +11,6 @@ import pro.nazirka.selmag.catalog.controller.payload.NewProductPayload;
 import pro.nazirka.selmag.catalog.entity.Product;
 import pro.nazirka.selmag.catalog.service.ProductService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,7 +20,7 @@ public class ProductsRestController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> findProducts() {
+    public Iterable<Product> findProducts() {
         return this.productService.findAllProducts();
     }
 

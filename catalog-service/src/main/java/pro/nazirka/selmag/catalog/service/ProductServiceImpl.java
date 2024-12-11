@@ -2,10 +2,10 @@ package pro.nazirka.selmag.catalog.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pro.nazirka.selmag.catalog.entity.Product;
 import pro.nazirka.selmag.catalog.repository.ProductRepository;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -15,11 +15,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public List<Product> findAllProducts() {
+    public Iterable<Product> findAllProducts() {
         return this.productRepository.findAll();
     }
 
     @Override
+    @Transactional
     public Product createProduct(String title, String details) {
         return this.productRepository.save(new Product(null, title, details));
     }
@@ -30,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void updateProduct(Integer id, String title, String details) {
         this.productRepository.findById(id)
                 .ifPresentOrElse(product -> {
@@ -41,6 +43,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         this.productRepository.deleteById(id);
     }
